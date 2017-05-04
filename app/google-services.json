@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "875291724432",
+    "firebase_url": "https://finalproject-139e0.firebaseio.com",
+    "project_id": "finalproject-139e0",
+    "storage_bucket": "finalproject-139e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875291724432:android:a4b0a6895ea3d369",
+        "android_client_info": {
+          "package_name": "com.sourcey.materialloginexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875291724432-dcd9fv3ili7rp05kddpkptdeo6t1smre.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sourcey.materialloginexample",
+            "certificate_hash": "7c28b6774e98a93ad8951fb492694bdbb8b545c6"
+          }
+        },
+        {
+          "client_id": "875291724432-178f3ofhacvbfou96k2qs3gcp72vi2ka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6CJjssBUOdXAVNdUG_I5HvN4DckLroD8"
+        },
+        {
+          "current_key": "AIzaSyBOsZHCaDIar36bBC1e5sbFobZj5vkGy5c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875291724432-178f3ofhacvbfou96k2qs3gcp72vi2ka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875291724432:android:a90661b98103f2e1",
+        "android_client_info": {
+          "package_name": "edu.css.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875291724432-kumuuk2vd2phgikkg60pbobb180d2941.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.css.finalproject",
+            "certificate_hash": "7c28b6774e98a93ad8951fb492694bdbb8b545c6"
+          }
+        },
+        {
+          "client_id": "875291724432-178f3ofhacvbfou96k2qs3gcp72vi2ka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6CJjssBUOdXAVNdUG_I5HvN4DckLroD8"
+        },
+        {
+          "current_key": "AIzaSyBOsZHCaDIar36bBC1e5sbFobZj5vkGy5c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875291724432-178f3ofhacvbfou96k2qs3gcp72vi2ka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
