@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,5 +24,53 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
         android:id="@+id/btn_signout" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left|bottom">
+
+        <Button
+            android:id="@+id/angry_btn"
+
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:drawableBottom="@mipmap/ic_launcher_add"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/buttoncustom"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_info"
+            app:backgroundTint="@android:color/holo_red_dark" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fxab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_input_add"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:layout_anchorGravity="top" />
+
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/primary_darker</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -26,5 +26,7 @@
         <item name="android:textColorPrimary">@color/iron</item>
         <item name="android:background">@color/black</item>
     </style>
+
+
 
 </resources>
