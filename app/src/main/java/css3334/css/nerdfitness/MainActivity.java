@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newWorkout = new Intent(view.getContext(), NewWorkoutActivity.class);
+                Intent newPost = new Intent(view.getContext(), NewPostActivity.class);
                 finish();
-                startActivity(newWorkout);
+                startActivity(newPost);
             }
         });
     }
