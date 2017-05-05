@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,7 +52,7 @@ public class NewPostActivity extends AppCompatActivity {
 
                 Intent cameraintent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
-                startActivityForResult(cameraintent, CAMERA_REQUEST_CODE);
+                startActivityForResult(cameraintent, 1337);
 
 
             }
@@ -71,15 +72,16 @@ public class NewPostActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
-          mprogress.setMessage("Uploading Image");
+            mprogress.setMessage("Uploading Image");
             mprogress.show();
 
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            ImageView image = (ImageView)
-
-            Uri uri = data.getData();
-
+            myImageView.setImageBitmap(thumbnail);
+        }else {
+            Toast.makeText(NewPostActivity.this, "Picture Not taken", Toast.LENGTH_LONG).show();
             //DatabaseReference filepath = mstorage.child("Photos").child(uri.getLastPathSegment())
         }
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }
