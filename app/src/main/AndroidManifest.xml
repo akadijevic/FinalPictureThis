@@ -19,6 +19,7 @@ package="css3334.css.nerdfitness" >
     </activity>
     <activity android:name="css3334.css.nerdfitness.LoginActivity" android:theme="@style/AppTheme.Dark" />
     <activity android:name="css3334.css.nerdfitness.SignupActivity" android:theme="@style/AppTheme.Dark" />
+    <activity android:name="css3334.css.nerdfitness.NewWorkoutActivity" android:theme="@style/AppTheme" />
 </application>
 
 </manifest>
