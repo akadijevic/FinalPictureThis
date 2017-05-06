@@ -48,7 +48,8 @@ public class NewPostActivity extends AppCompatActivity {
     StorageReference mstorage;
     DatabaseReference mdatabase;
     ProgressDialog mprogress;
-public  static final String FB_DATABASE_PATH = "image";
+public  static final String FB_STORAGE_PATH = "image/";
+    public  static final String FB_DATABASE_PATH = "image";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
@@ -83,7 +84,7 @@ public  static final String FB_DATABASE_PATH = "image";
         PostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainActivityIntent = new Intent(v.getContext(), MainActivity.class);
+                Intent mainActivityIntent = new Intent(v.getContext(), ImageListActivity.class);
                 mainActivityIntent.putExtra("bitmap", bitmap);
                 finish();
                 startActivity(mainActivityIntent);

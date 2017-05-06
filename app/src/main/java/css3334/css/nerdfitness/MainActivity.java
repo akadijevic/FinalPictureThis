@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    @Bind(R.id.btn_signout) Button _signoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +32,6 @@ public class MainActivity extends AppCompatActivity {
         /* Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent); */
 
-        _signoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Signout();
-            }
-        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
