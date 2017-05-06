@@ -84,7 +84,7 @@ public  static final String FB_STORAGE_PATH = "image/";
         PostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainActivityIntent = new Intent(v.getContext(), ImageListActivity.class);
+                Intent mainActivityIntent = new Intent(v.getContext(), MainActivity.class);
                 mainActivityIntent.putExtra("bitmap", bitmap);
                 finish();
                 startActivity(mainActivityIntent);
