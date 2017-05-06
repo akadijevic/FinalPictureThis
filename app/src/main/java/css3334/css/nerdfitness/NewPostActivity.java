@@ -127,7 +127,8 @@ public  static final String FB_DATABASE_PATH = "image";
 
                     mprogress.dismiss();
                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
+                    String uploadId = mdatabase.push().getKey();
+                    mdatabase.child(uploadId).setValue(downloadUrl);
                    // Picasso.with(NewPostActivity.this).load(downloadUrl).fit().centerCrop().into(myImageView);
                     //get the camera image
 
