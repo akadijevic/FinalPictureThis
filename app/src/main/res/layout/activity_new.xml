@@ -5,6 +5,8 @@
     android:layout_height="wrap_content">
 
 
+
+
     <Button
         android:text="Capture and upload"
         android:layout_width="match_parent"
@@ -16,6 +18,16 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:scaleType="fitCenter"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/txtPhotoCaption"
+        android:hint="Image Caption"
+        android:layout_below="@+id/upload"
         />
 
     <Button

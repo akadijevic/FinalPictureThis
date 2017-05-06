@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.content.Intent;
@@ -41,6 +42,7 @@ import static android.R.attr.data;
 public class NewPostActivity extends AppCompatActivity {
     Button myUploadButton, PostButton;
     ImageView myImageView;
+    EditText txtImageCaption;
 
     int CAMERA_REQUEST_CODE = 1;
     StorageReference mstorage;
@@ -57,6 +59,7 @@ public  static final String FB_DATABASE_PATH = "image";
         myUploadButton = (Button) findViewById(R.id.upload);
         myImageView = (ImageView) findViewById(R.id.imageView);
         PostButton = (Button) findViewById(R.id.saveButton);
+        txtImageCaption = (EditText) findViewById(R.id.txtPhotoCaption);
 
         setupCamera();
         setupSaveButton();
@@ -126,9 +129,12 @@ public  static final String FB_DATABASE_PATH = "image";
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     mprogress.dismiss();
-                   Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                    Photo photoUpload = new Photo(txtImageCaption.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+
+                  // Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     String uploadId = mdatabase.push().getKey();
-                    mdatabase.child(uploadId).setValue(downloadUrl);
+                    mdatabase.child(uploadId).setValue(photoUpload);
                    // Picasso.with(NewPostActivity.this).load(downloadUrl).fit().centerCrop().into(myImageView);
                     //get the camera image
 
