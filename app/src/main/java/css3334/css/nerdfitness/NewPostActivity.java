@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.Date;
 
+import static android.R.attr.bitmap;
 import static android.R.attr.data;
 
 
@@ -38,23 +39,30 @@ import static android.R.attr.data;
  * Created by akadijevic on 5/4/2017.
  */
 public class NewPostActivity extends AppCompatActivity {
-    Button myUploadButton;
+    Button myUploadButton, PostButton;
     ImageView myImageView;
 
     int CAMERA_REQUEST_CODE = 1;
     StorageReference mstorage;
+    DatabaseReference mdatabase;
     ProgressDialog mprogress;
-
+public  static final String FB_DATABASE_PATH = "image";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
 
         mstorage = FirebaseStorage.getInstance().getReference();
+        mdatabase =FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
         mprogress = new ProgressDialog(this);
         myUploadButton = (Button) findViewById(R.id.upload);
         myImageView = (ImageView) findViewById(R.id.imageView);
-/* sets a method for upload button */
+        PostButton = (Button) findViewById(R.id.saveButton);
 
+        setupCamera();
+        setupSaveButton();
+    }
+    /* sets a method for upload button */
+    private void setupCamera() {
         myUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +74,23 @@ public class NewPostActivity extends AppCompatActivity {
         });
 
     }
+
+    private void setupSaveButton(){
+
+        PostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(v.getContext(), MainActivity.class);
+                mainActivityIntent.putExtra("bitmap", bitmap);
+                finish();
+                startActivity(mainActivityIntent);
+
+            }
+        });
+    }
+
+
+
 
     /**
      * The following code snippet retrieves the photo that the user has captured:
@@ -101,7 +126,8 @@ public class NewPostActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     mprogress.dismiss();
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                   Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
                    // Picasso.with(NewPostActivity.this).load(downloadUrl).fit().centerCrop().into(myImageView);
                     //get the camera image
 
