@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -37,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageListAdapter adapter;
     private ProgressDialog progressDialog;
 
+    int positionSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_list);
-        checkUserAuthenticated();
+
         imgList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.listViewImage);
         progressDialog = new ProgressDialog(this);
@@ -49,9 +52,16 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait while loading");
         progressDialog.show();
 
-        ButterKnife.bind(this);
+        setupFirebaseDataChange();
+        checkUserAuthenticated();
+        setupFloatingButton();
+        //ButterKnife.bind(this);
+
         /* Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent); */
+    }
+
+    private void setupFloatingButton() {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,15 +72,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(newPost);
             }
         });
+    }
+    private void setupFirebaseDataChange() {
+
         mDatabase = FirebaseDatabase.getInstance().getReference(NewPostActivity.FB_DATABASE_PATH);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 progressDialog.dismiss();
 
                 //Loop that is getting image data from the database
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Photo img = snapshot.getValue(Photo.class);
                     imgList.add(img);
@@ -88,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void checkUserAuthenticated() {
         mAuth = FirebaseAuth.getInstance(); //declare object for Firebase

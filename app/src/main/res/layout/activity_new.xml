@@ -7,7 +7,7 @@
 
 
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:text="Capture and upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,11 @@
         android:layout_width="match_parent"
         android:scaleType="fitCenter"
         />
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="8dp">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,8 +33,9 @@
         android:hint="Image Caption"
         android:layout_below="@+id/upload"
         />
+    </android.support.design.widget.TextInputLayout>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:text="Post "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -8,6 +8,9 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
     </style>
+    <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
+    <item name="colorPrimary">@android:color/transparent</item>
+</style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>

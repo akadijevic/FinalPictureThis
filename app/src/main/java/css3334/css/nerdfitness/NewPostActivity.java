@@ -34,15 +34,17 @@ import java.util.Date;
 
 import static android.R.attr.bitmap;
 import static android.R.attr.data;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by akadijevic on 5/4/2017.
  */
 public class NewPostActivity extends AppCompatActivity {
-    Button myUploadButton, PostButton;
-    ImageView myImageView;
-    EditText txtImageCaption;
+    @Bind(R.id.saveButton) Button PostButton;
+    @Bind(R.id.upload) Button myUploadButton;
+    @Bind(R.id.imageView)ImageView myImageView;
+    @Bind(R.id.txtPhotoCaption) EditText txtImageCaption;
 
     int CAMERA_REQUEST_CODE = 1;
     StorageReference mstorage;
@@ -53,14 +55,15 @@ public  static final String FB_STORAGE_PATH = "image/";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
+        ButterKnife.bind(this);
 
         mstorage = FirebaseStorage.getInstance().getReference();
         mdatabase =FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
         mprogress = new ProgressDialog(this);
-        myUploadButton = (Button) findViewById(R.id.upload);
-        myImageView = (ImageView) findViewById(R.id.imageView);
-        PostButton = (Button) findViewById(R.id.saveButton);
-        txtImageCaption = (EditText) findViewById(R.id.txtPhotoCaption);
+        //myUploadButton = (Button) findViewById(R.id.upload);
+       // myImageView = (ImageView) findViewById(R.id.imageView);
+        //PostButton = (Button) findViewById(R.id.saveButton);
+        //txtImageCaption = (EditText) findViewById(R.id.txtPhotoCaption);
 
         setupCamera();
         setupSaveButton();
@@ -149,12 +152,12 @@ public  static final String FB_STORAGE_PATH = "image/";
                 }
             });
 
-                    /* .addOnFailureListener(new OnFailureListener() {
+                  uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    Toast.makeText(NewPostActivity.this, "Uploading photo failed.",Toast.LENGTH_LONG).show();
                 }
-            }) */
+            });
 
 
         }

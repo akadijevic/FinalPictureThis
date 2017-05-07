@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".NewPostActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Dark" />
         <activity android:name=".ImageListActivity"></activity>
     </application>
 
