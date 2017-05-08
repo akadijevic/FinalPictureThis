@@ -41,6 +41,7 @@ import butterknife.ButterKnife;
  * Created by akadijevic on 5/4/2017.
  */
 public class NewPostActivity extends AppCompatActivity {
+
     @Bind(R.id.saveButton) Button PostButton;
     @Bind(R.id.upload) Button myUploadButton;
     @Bind(R.id.imageView)ImageView myImageView;
@@ -50,13 +51,16 @@ public class NewPostActivity extends AppCompatActivity {
     StorageReference mstorage;
     DatabaseReference mdatabase;
     ProgressDialog mprogress;
-public  static final String FB_STORAGE_PATH = "image/";
+
+    public  static final String FB_STORAGE_PATH = "image/";
     public  static final String FB_DATABASE_PATH = "image";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
         ButterKnife.bind(this);
-
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
         mstorage = FirebaseStorage.getInstance().getReference();
         mdatabase =FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
         mprogress = new ProgressDialog(this);

@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private List<Photo> imgList;
-    private ListView lv;
     private ImageListAdapter adapter;
     private ProgressDialog progressDialog;
+    @Bind(R.id.listViewImage) ListView lv;
 
     int positionSelected;
 
@@ -45,17 +45,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_list);
 
+        ButterKnife.bind(this);
         imgList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.listViewImage);
         progressDialog = new ProgressDialog(this);
         //show progress dialog List image loading
         progressDialog.setMessage("Please wait while loading");
         progressDialog.show();
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_action_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         setupFirebaseDataChange();
         checkUserAuthenticated();
         setupFloatingButton();
-        //ButterKnife.bind(this);
+
 
         /* Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent); */
