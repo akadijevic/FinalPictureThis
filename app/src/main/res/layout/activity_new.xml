@@ -14,10 +14,12 @@
         android:id="@+id/upload" />
 
     <ImageView
-        android:layout_height="match_parent"
+        android:layout_height="600dp"
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:scaleType="fitCenter"
+        android:layout_below="@+id/upload"
+        android:layout_marginTop="100dp"
         />
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -31,7 +33,7 @@
         android:ems="10"
         android:id="@+id/txtPhotoCaption"
         android:hint="Image Caption"
-        android:layout_below="@+id/upload"
+        android:layout_above="@+id/imageView"
         />
     </android.support.design.widget.TextInputLayout>
 
