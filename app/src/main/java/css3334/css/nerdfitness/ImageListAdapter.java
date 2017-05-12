@@ -24,8 +24,7 @@ public class ImageListAdapter extends ArrayAdapter<Photo> {
     private int resource;
     private List<Photo> listImage;
 
-    //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    //String name = user.getDisplayName();
+
 
     public ImageListAdapter(@NonNull Activity context, @LayoutRes int resource, @NonNull List<Photo> objects) {
         super(context, resource, objects);
@@ -41,8 +40,7 @@ public class ImageListAdapter extends ArrayAdapter<Photo> {
         View v = inflater.inflate(resource,null);
         TextView tvCaption = (TextView) v.findViewById(R.id.tvImageCaption);
         ImageView img = (ImageView) v.findViewById(R.id.imgView);
-       // TextView displayUser = (TextView) v.findViewById(R.id.DisplayUsername);
-        //displayUser.setText(name);
+
         tvCaption.setText(listImage.get(position).getCaption());
         Glide.with(context).load(listImage.get(position).getUrl()).into(img);
         return v;

@@ -52,27 +52,28 @@ public class NewPostActivity extends AppCompatActivity {
     DatabaseReference mdatabase;
     ProgressDialog mprogress;
 
-    public  static final String FB_STORAGE_PATH = "image/";
+   // public  static final String FB_STORAGE_PATH = "image/";
     public  static final String FB_DATABASE_PATH = "image";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
         ButterKnife.bind(this);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+
         mstorage = FirebaseStorage.getInstance().getReference();
         mdatabase =FirebaseDatabase.getInstance().getReference(FB_DATABASE_PATH);
         mprogress = new ProgressDialog(this);
-        //myUploadButton = (Button) findViewById(R.id.upload);
-       // myImageView = (ImageView) findViewById(R.id.imageView);
-        //PostButton = (Button) findViewById(R.id.saveButton);
-        //txtImageCaption = (EditText) findViewById(R.id.txtPhotoCaption);
+
 
         setupCamera();
         setupSaveButton();
     }
-    /* sets a method for upload button */
+
+    /* sets a method for upload button
+    * the startActivityforResult method is called passing two parameters
+    * @param intent
+    * @param CAMERA_REQUEST CODE that has been declared above as "1"
+    * */
     private void setupCamera() {
         myUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +87,11 @@ public class NewPostActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * method that is called when the button Post is clicked
+     * the user is redirect to MainActivity
+     * the bitmap object we have declared in the OnActivityresults method is passed
+     */
     private void setupSaveButton(){
 
         PostButton.setOnClickListener(new View.OnClickListener() {
@@ -101,15 +107,25 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
 
-
-
-    /**
-     * The following code snippet retrieves the photo that the user has captured:
-     * From -- https://developers.google.com/places/android-api/placepicker
-     *
+    /*
+     * The following code snippet retrieves the photo that the user has captured
      * @param requestCode
      * @param resultCode
      * @param data
+     * if the request code is equal to the code declared above and resultcode is valid
+     * the progress Dialog is shown with the messages
+     * then the Bundle is declared that fetches the data
+     * the following code snippet then reduces the size of the photo so that it can be passed back to mainactivity
+     * the imageView is then set to displayed the photo captured in the lower quality
+     * the filepath is declared to take the current date and Time, it is then stored into a database storage
+     * the uploudTask is then declared to take that filepath and reduces the size of the image
+     * if the uploadTask is successful the progress dialog is dismissed
+     * the new object Photo is then being created passing the two parameters
+     * @param txtImageCaption takes the user input and converts it into a string
+     * @tasSnapshot.getDownloadUri basically gets the download uri passed into a photo object
+     * then we declared a string that will store a unique key of the file and push it into a Firebase database
+     * this key will be assigned to the object
+     *  if the uploadTask is not successful the toast is displayed
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,7 +144,6 @@ public class NewPostActivity extends AppCompatActivity {
             myImageView.setImageBitmap(bitmap);
 
 
-          // Uri uri = data.getData();
             StorageReference filepath = mstorage.child("Photo" +new Date().getTime());
 
              UploadTask uploadTask = filepath.putBytes(databaos);
@@ -140,16 +155,8 @@ public class NewPostActivity extends AppCompatActivity {
 
                     Photo photoUpload = new Photo(txtImageCaption.getText().toString(), taskSnapshot.getDownloadUrl().toString());
 
-                  // Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     String uploadId = mdatabase.push().getKey();
                     mdatabase.child(uploadId).setValue(photoUpload);
-                   // Picasso.with(NewPostActivity.this).load(downloadUrl).fit().centerCrop().into(myImageView);
-                    //get the camera image
-
-
-                    /* Uri downloadUri= taskSnapshot.getDownloadUrl();
-                    Picasso.with(NewPostActivity.this).load(downloadUri).fit().centerCrop().into(myImageView);
-                    Toast.makeText(NewPostActivity.this, "Picture Taken", Toast.LENGTH_LONG).show(); */
 
 
 

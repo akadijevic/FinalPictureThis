@@ -23,14 +23,12 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
-    //@Bind(R.id.input_name) EditText _nameText;
-   // @Bind(R.id.input_address) EditText _addressText;
-    @Bind(R.id.input_email) EditText _emailText;
-   // @Bind(R.id.input_mobile) EditText _mobileText;
-    @Bind(R.id.input_password) EditText _passwordText;
-    @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
-    @Bind(R.id.btn_signup) Button _signupButton;
-    @Bind(R.id.link_login) TextView _loginLink;
+
+    @Bind(R.id.input_email) EditText emailText;
+    @Bind(R.id.input_password) EditText passwordText;
+    @Bind(R.id.input_reEnterPassword) EditText reEnterPasswordText;
+    @Bind(R.id.btn_signup) Button signupButton;
+    @Bind(R.id.link_login) TextView loginLink;
 
     private FirebaseAuth mAuth;
 
@@ -40,16 +38,26 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
 
-        mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
+        /*declare object for Firebase*/
+        mAuth = FirebaseAuth.getInstance();
 
-        _signupButton.setOnClickListener(new View.OnClickListener() {
+        /*
+         * method that sets up the signup button
+         * the method takes user input, email and password and stores it into a string
+         * method validate() is then called
+         * if the validate method has failed the onSignupFailed() method is called
+         * if the validate method has passed, the createAccount() method is called with passing two paramaters
+         * @param email
+         * @param password
+         */
+        signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("CIS3334", "Creating a new user account");
                 //create account for new users
-                String email = _emailText.getText().toString();
-                String password = _passwordText.getText().toString();
-                String reEnterPassword = _reEnterPasswordText.getText().toString();
+                String email = emailText.getText().toString();
+                String password = passwordText.getText().toString();
+                String reEnterPassword = reEnterPasswordText.getText().toString();
                 if (!validate()) {
                     onSignupFailed();
                     return;
@@ -63,7 +71,13 @@ public class SignupActivity extends AppCompatActivity {
             } */
         });
 
-        _loginLink.setOnClickListener(new View.OnClickListener() {
+         /*
+         * method that sets up the login link
+         * when button the login linked clicked the new activity is started
+         * @param getApplicationContext returns the context for the entire application
+         * @param LoginActivity is started
+         */
+        loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
@@ -75,6 +89,12 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+        /*
+         * method that that is called when user's credentials have passed the validation
+         * the paramaters email and string stored in a string are fetched
+         * if the password and email are valid credentials, the user is signed in and returned to MainActivity
+         * if the user authentication fails, the Toast is displayed
+          */
     private void createAccount(String email, String password) {
         //create account for new users
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -90,108 +110,55 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * if validation failed, the method SignUpFailed is called()
+     * The toast is being displayed
+     * the signupButton is enabled then once again for user to try to sign in once again
+     */
 
-   /* public void signup() {
-        Log.d(TAG, "Signup");
-
-        if (!validate()) {
-            onSignupFailed();
-            return;
-        }
-
-        _signupButton.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
-
-       // String name = _nameText.getText().toString();
-        //String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        //String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString(); */
-
-        // TODO: Implement your own signup logic here.
-
-       /* new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-    }
-*/
-
-  /*  public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        finish();
-    }
-            */
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
-        _signupButton.setEnabled(true);
+        signupButton.setEnabled(true);
     }
 
+    /*
+     * the validate method is called when the user tries to sign up
+     * the input email, password and reEnterPassword is stored in a string
+     * if an email,password or reEnter input is empty an error is prompted and validation has failed
+     * in order for password input to be pass validation the password must be within 4 and 10 digits
+     * similarly the reEnterPassword must pass the same validation
+     * in addition the reEnterPassword field must match the initial password field
+     * once all three pass the validations, the method sends back that these fields have been successfully validated
+     * user is then enabled to log in
+     */
     public boolean validate() {
         boolean valid = true;
 
-        //String name = _nameText.getText().toString();
-       // String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-       // String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
-
-       /* if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
-            valid = false;
-        } else {
-            _nameText.setError(null);
-        }
-
-        if (address.isEmpty()) {
-            _addressText.setError("Enter Valid Address");
-            valid = false;
-        } else {
-            _addressText.setError(null);
-        } */
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
+        String reEnterPassword = reEnterPasswordText.getText().toString();
 
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            emailText.setError("enter a valid email address");
             valid = false;
         } else {
-            _emailText.setError(null);
+            emailText.setError(null);
         }
 
-      /* if (mobile.isEmpty() || mobile.length()!=10) {
-            _mobileText.setError("Enter Valid Mobile Number");
-            valid = false;
-        } else {
-            _mobileText.setError(null);
-        } */
-
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
-            _passwordText.setError(null);
+            passwordText.setError(null);
         }
 
         if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            _reEnterPasswordText.setError("Password Do not match");
+            reEnterPasswordText.setError("Password Do not match");
             valid = false;
         } else {
-            _reEnterPasswordText.setError(null);
+            reEnterPasswordText.setError(null);
         }
 
         return valid;

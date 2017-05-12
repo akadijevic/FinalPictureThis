@@ -27,7 +27,7 @@ public class ImageListActivity extends AppCompatActivity {
         imgList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.listViewImage);
         progressDialog = new ProgressDialog(this);
-        //show progress dialog List image loading
+
         progressDialog.setMessage("Please wait while loading");
         progressDialog.show();
 

@@ -4,6 +4,9 @@ package css3334.css.nerdfitness;
  * Created by akadijevic on 5/5/2017.
  */
 
+/*
+ * this class is used to serve as an object in which we store the caption and url.
+ */
 public class Photo {
 
     public String caption;

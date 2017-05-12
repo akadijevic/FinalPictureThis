@@ -24,12 +24,11 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    /*EditText emailText, passwordText;
-    Button buttonLogin, buttonNewUser;*/
-    @Bind(R.id.input_email) EditText _emailText;
-    @Bind(R.id.input_password) EditText _passwordText;
-    @Bind(R.id.btn_login) Button _loginButton;
-    @Bind(R.id.link_signup) TextView _signupLink;
+
+    @Bind(R.id.input_email) EditText emailText;
+    @Bind(R.id.input_password) EditText passwordText;
+    @Bind(R.id.btn_login) Button loginButton;
+    @Bind(R.id.link_signup) TextView signupLink;
 
     private FirebaseAuth mAuth;
 
@@ -38,37 +37,47 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-       /* emailText= (EditText) findViewById(R.id.input_email);
-        passwordText= (EditText) findViewById(R.id.input_password);
-        buttonLogin= (Button) findViewById(R.id.btn_login);
-        buttonNewUser= (Button) findViewById(R.id.btn_signup); */
+
         setupCreateButton();
         setupLoginButton();
 
-        mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
+        /* declares object for Firebase*/
+        mAuth = FirebaseAuth.getInstance();
     }
+
+        /*
+         * method that sets up the login button
+         * the method takes user input, email and password and stores it into a string
+         * the method signIn is called passing the two parameters
+         * @param email
+         * @param password
+         */
         private void setupLoginButton() {
-        _loginButton.setOnClickListener(new View.OnClickListener() {
-            //@Override
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Log.d("CIS3334", "Signing in the user");
-                String email = _emailText.getText().toString();
-                String password = _passwordText.getText().toString();
+                String email = emailText.getText().toString();
+                String password = passwordText.getText().toString();
                 signIn(email,password);
             }
-            /* @Override
-            public void onClick(View v) {
-                login();
-            } */
+
         });
 
     }
-    private void setupCreateButton() {
-        _signupLink.setOnClickListener(new View.OnClickListener() {
+        /*
+         * method that sets up the create link
+         * when button create new account clicked the new activity is started
+         * @param getApplicationContext returns the context for the entire application
+         * @param SignUpActivty is started
+         */
 
-           // @Override
+    private void setupCreateButton() {
+        signupLink.setOnClickListener(new View.OnClickListener() {
+
+           @Override
             public void onClick(View v) {
-                // Start the Signup activity
+
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
@@ -77,15 +86,22 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+        /*
+         * method that that is called when user signs in
+         * the paramaters email and string stored in a string are fetched
+         * if the password and email are valid credentials, the user is signed in and returned to MainActivity
+         * if the user authentication fails, the Toast is displayed
+         */
+
     private void signIn(String email, String password){
-        //sign in the recurrent user with email and password previously created.
+
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() { //add to listener
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) { //when failed
+                if (!task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "SignIn--Authentication failed.",Toast.LENGTH_LONG).show();
                 } else {
-                    //return to MainActivity is login works
+
                     finish();
                 }
             }

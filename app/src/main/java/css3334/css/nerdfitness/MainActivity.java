@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     @Bind(R.id.listViewImage) ListView lv;
 
-    int positionSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         imgList = new ArrayList<>();
+
+          /*show progress dialog List image loading */
         progressDialog = new ProgressDialog(this);
-        //show progress dialog List image loading
         progressDialog.setMessage("Please wait while loading");
         progressDialog.show();
 
+        /*
+         * The next following three lines set up an icon to be visible in the app bar
+         */
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_action_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -61,9 +64,14 @@ public class MainActivity extends AppCompatActivity {
         setupFloatingButton();
 
 
-        /* Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent); */
     }
+
+    /*
+    * the following method is called by on create method
+    * when floating button clicked, new activity will start
+    * @param getContext returns the context of the view that is currently running
+    * @param NewPostActivity reffers to the new activity started by the onClickListener
+    */
 
     private void setupFloatingButton() {
 
@@ -77,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    /*
+    * This method initilizes the DatabaseReference
+    * */
     private void setupFirebaseDataChange() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference(NewPostActivity.FB_DATABASE_PATH);
@@ -87,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
-                //Loop that is getting image data from the database
+                /*Loop that is getting image data from the database */
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Photo img = snapshot.getValue(Photo.class);
@@ -107,16 +118,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /*
+     * this method checks whether there is a user signed in already
+     * first, the object for Firebase is declared
+     * second, the mAuthListener is initialized
+     * if there is not a user signed in, the Login activity is prompted
+     *  @param getBaseContext returns the context of the view that is currently running
+     * @param LoginActivity
+     */
     private void checkUserAuthenticated() {
-        mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
-        mAuthListener = new FirebaseAuth.AuthStateListener() { //initialized mAuthListener
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                //track the user when they sign in or out using the firebaseAuth
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
-                    // User is signed out
+
                     Log.d("CSS3334","onAuthStateChanged - User NOT is signed in");
                     Intent signInIntent = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(signInIntent);
@@ -125,8 +142,9 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-
-
+    /*
+     * this method gets a user via mAuth and signs out the current user
+     */
    public void Signout() { mAuth.signOut(); }
 
 
@@ -137,17 +155,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*
+     * method that handles when the action bar items are clicked
+     * the method gets the item action bar items by their id declared in a layout
+     * When signout button clicked, the method signout() is called
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        /* if (id == R.id.action_settings) {
-            return true;
-        } */
          if (id ==R.id.action_signout){
             Signout();
             return true;
@@ -155,19 +171,24 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /* This method initializes the authentication listener */
     @Override
     public void onStart() {
-        //initiate the authentication listener
+
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener); // update the listener on the users place
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
+    /*discontinues the authentication
+    * removing a listener
+    * */
     @Override
     public void onStop() {
-        //discontinue the authentication
+
         super.onStop();
         if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener); // remove the listener
+            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 }
