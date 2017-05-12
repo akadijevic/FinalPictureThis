@@ -86,8 +86,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     /*
-    * This method initilizes the DatabaseReference
-    * */
+    * This method initializes the database, referecing the path declared in the the NewPostActivity
+    * once the data loads via Datasnapshot passed from the NewPostActivity, the progressiveDialog is dismiessed
+    * the following code has been put in a for loop so that it executes for every file in the storage
+    * we declared a photo variable that gets the constructs from the Photo class(caption, url)
+    * this then adds it to a an arraylist that we have declared as "imgList"
+    * for every file in the storage the adapter is initialized referencing the image_item layout we have created
+    * then this adapter is attached to the list view that stores and displays all te files
+    */
     private void setupFirebaseDataChange() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference(NewPostActivity.FB_DATABASE_PATH);
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
-                /*Loop that is getting image data from the database */
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Photo img = snapshot.getValue(Photo.class);

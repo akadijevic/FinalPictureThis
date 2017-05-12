@@ -5,7 +5,7 @@ package css3334.css.nerdfitness;
  */
 
 /*
- * this class is used to serve as an object in which we store the caption and url.
+ * this class is used to serve as an object in which we store the caption and url as constructors.
  */
 public class Photo {
 
